@@ -1,0 +1,68 @@
+<div class="card text-dark mt-3">
+    <div class="card-header bg-transparent">
+        <h5 class="card-title">Afiliados</h5>
+        <p class="card-text">Listado de afiliados registrados</p>
+    </div>
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" [(ngModel)]="textoBusqueda" placeholder="Buscar...">
+            </div>
+            <div class="col-md-6">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/afiliados/nuevo']">
+                        <i class="fas fa-plus"></i> Agregar </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Teléfono</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">F. Vencimiento</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let afiliado of afiliados | filtro: textoBusqueda | paginate : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: count
+                      };">
+                        <th scope="row"> {{ afiliado.afi_cedula }} </th>
+                        <td> {{ afiliado.afi_apellidos }} {{ afiliado.afi_nombres }} </td>
+                        <td> {{ afiliado.afi_direccion }} </td>
+                        <td> {{ afiliado.afi_celular }} </td>
+                        <td> {{ afiliado.afi_email_particular }} </td>
+                        <td> {{ afiliado.afi_fecha_vencimiento }} </td>
+                        <td>
+                            <span *ngIf="afiliado.afi_estado == 'SA'" class="badge bg-primary">Sin Aprobar</span>
+                            <span *ngIf="afiliado.afi_estado == 'AP'" class="badge bg-success">Vigente</span>
+                            <span *ngIf="afiliado.afi_estado == 'PC'" class="badge bg-warning">Por Caducar</span>
+                            <span *ngIf="afiliado.afi_estado == 'CA'" class="badge bg-danger">Caducado</span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm"
+                                [routerLink]="['/afiliados', afiliado.id]">
+                                <i class="fas fa-edit"></i> </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)">
+            </pagination-controls>
+        </div>
+
+
+    </div>
+</div>

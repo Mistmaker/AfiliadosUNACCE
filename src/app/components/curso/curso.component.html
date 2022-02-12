@@ -1,0 +1,147 @@
+<div class="card text-dark mt-3">
+    <div class="card-header bg-primary text-light">
+        <h5 class="card-title">Cursos</h5>
+        <p class="card-text">Mantenimiento</p>
+    </div>
+    <div class="card-body">
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/cursos']">
+                <i class="fas fa-long-arrow-alt-left"></i> Regresar </button>
+        </div>
+
+        <form class="mt-1" (ngSubmit)="f.form.valid &&guardar( f )" #f="ngForm">
+
+            <div *ngIf="curso.id" class="row">
+                <div class="col-md-4">
+                    <label class="form-label">Número de Afiliación</label>
+                    <div class="input-group mb-3">
+                        <input type="tel" class="form-control" [(ngModel)]="curso.id" name="afi_numero" disabled>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="form-label">Nombre</label>
+                    <div class="input-group">
+                        <input type="tel" class="form-control" [(ngModel)]="curso.cur_descripcion"
+                            name="cur_descripcion" placeholder="Nombre del curso..." maxlength="1000" #nombre="ngModel"
+                            required>
+                    </div>
+                    <div *ngIf="f.submitted && nombre.invalid" class="alert alert-warning">
+                        <div *ngIf="nombre.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Nombre requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Modalidad: </label>
+                    <select [(ngModel)]="curso.id_modalidad" name="id_curso" class="form-select" #modalidad="ngModel"
+                        required>
+                        <option *ngFor="let modalidad of modalidades" [value]="modalidad.id"> {{ modalidad.mod_nombre }}
+                        </option>
+                    </select>
+                    <div *ngIf="f.submitted && modalidad.invalid" class="alert alert-warning">
+                        <div *ngIf="modalidad.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Seleccione una modalidad
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Imagen:</label>
+                        <div class="input-group mb-4">
+                            <input class="form-control" (change)="cargaArchivo($event)" type="file" id="formFile">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center" *ngIf="curso.cur_imagen != ''">
+                        <img src="data:image/png;base64,{{curso.cur_imagen}}" style="height: 300px;" alt="Imagen-Curso">
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label class="form-label">&nbsp;</label>
+                        <div class="input-group mb-4">
+                            <img class="img-center" [src]="noticia.IMAGEN_LINK" style="width: 250px;" alt="">
+                        </div>
+                    </div> -->
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-primary mt-1" type="button" (click)="agregarDatoAdicional()">
+                        <i class="fas fa-plus"></i> Agregar
+                    </button>
+                </div>
+
+                <div class="table-responsive" *ngIf="curso.datosAdicionales">
+                    <table class="table table-sm table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Descripción *</th>
+                                <th scope="col">Dato 1</th>
+                                <th scope="col">Dato 2</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dato of curso.datosAdicionales;let i = index">
+                                <td scope="row">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-sm" name="desc{{i}}"
+                                            [(ngModel)]="dato.descripcion" [value]="dato.descripcion" required>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <textarea [(ngModel)]="dato.dato1" [value]="dato.dato1" name="dato1{{i}}"
+                                            type="text" class="form-control form-control-sm" maxlength="1000" rows="1"
+                                            required></textarea>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <textarea [(ngModel)]="dato.dato2" [value]="dato.dato2" name="dato2{{i}}"
+                                            type="text" class="form-control form-control-sm" maxlength="1000" rows="1"
+                                            required></textarea>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                        (click)="quitarDatoAdicional(i)">
+                                        <i class="fas fa-minus-circle"></i> </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="curso.datosAdicionales.length === 0"
+                    class="alert alert-warning text-center mt-3 animated fadein faster">
+                    <h4 class="alert-heading">No hay registros</h4>
+                    <p><i class="fa fa-exclamation fa-3x"></i></p>
+                </div>
+            </div>
+
+
+
+            <hr>
+            <div class="form-group text-center">
+                <button class="btn btn-primary w-50" type="submit">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button *ngIf="curso.id" type="button" class="btn btn-danger ml-1 w-50" (click)="eliminarCurso()">
+                    <i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+
+        </form>
+
+
+    </div>
+</div>

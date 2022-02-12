@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Personas Registradas</h6>
+                    <h2 class="text-right"><i class="fas fa-users f-left"></i><span>{{ afiliados }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Pendientes de aprobar</h6>
+                    <h2 class="text-right"><i class="fas fa-users f-left"></i><span>{{ afi_pendientes }}</span></h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-green order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Afiliaciones Vigentes</h6>
+                    <h2 class="text-right"><i class="fas fa-user-check f-left"></i><span> {{ afi_vigentes }} </span>
+                    </h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-yellow order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Afiliaciones por caducar</h6>
+                    <h2 class="text-right"><i class="fas fa-user-clock f-left"></i><span> {{ afi_por_caducar }} </span>
+                    </h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-xl-3">
+            <div class="card bg-c-pink order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20">Afiliaciones Caducadas</h6>
+                    <h2 class="text-right"><i class="fas fa-users-slash f-left"></i><span> {{ afi_caducados }} </span>
+                    </h2>
+                    <!-- <p class="m-b-0">Completed Orders<span class="f-right">351</span></p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

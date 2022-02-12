@@ -1,0 +1,498 @@
+<div class="card text-dark mt-3">
+    <div class="card-header bg-primary text-light">
+        <h5 class="card-title">Matriculación</h5>
+        <p class="card-text text-light">Registro</p>
+    </div>
+    <div class="card-body">
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/afiliados']">
+                <i class="fas fa-long-arrow-alt-left"></i> Regresar </button>
+        </div>
+
+        <form class="mt-1" (ngSubmit)="guardar( f )" #f="ngForm">
+
+            <div *ngIf="afiliado.id" class="row">
+                <div class="col-md-4">
+                    <label class="form-label">Número de Afiliación</label>
+                    <div class="input-group mb-3">
+                        <input type="tel" class="form-control" [(ngModel)]="afiliado.afi_numero" name="afi_numero"
+                            disabled>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label">Cedula</label>
+                    <div class="input-group">
+                        <input type="tel" class="form-control" [(ngModel)]="afiliado.afi_cedula" name="documento"
+                            placeholder="9999999999" minlength="10" maxlength="10" #cedula="ngModel" required>
+
+                    </div>
+                    <div *ngIf="f.submitted && cedula.invalid" class="alert alert-warning">
+                        <div *ngIf="cedula.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Cédula/Ruc requerida
+                        </div>
+                        <div *ngIf="cedula.errors!.minlength">
+                            <i class="fas fa-exclamation-triangle"></i> Debe tener 10 dígitos
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_apellidos" name="afi_apellidos"
+                        #apellidos="ngModel" required>
+                    <div *ngIf="f.submitted && apellidos.invalid" class="alert alert-warning">
+                        <div *ngIf="apellidos.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Apellidos requeridos
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Nombres</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_nombres" name="afi_nombres"
+                        #nombres="ngModel" required>
+                    <div *ngIf="f.submitted && nombres.invalid" class="alert alert-warning">
+                        <div *ngIf="nombres.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Nombres requeridos
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-3">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" class="form-control" [(ngModel)]="afiliado.afi_fecha_nacimiento"
+                        name="afi_fecha_nacimiento" #fechaN="ngModel" required>
+                    <div *ngIf="f.submitted && fechaN.invalid" class="alert alert-warning">
+                        <div *ngIf="fechaN.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Requerido
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Dirección</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_direccion" name="afi_direccion"
+                        #direccion="ngModel" required>
+                    <div *ngIf="f.submitted && direccion.invalid" class="alert alert-warning">
+                        <div *ngIf="direccion.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Dirección requerida
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Intersección</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_inteseccion"
+                        name="afi_inteseccion">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Barrio/Sector</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_barrio" name="afi_barrio">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label class="form-label">Provincia</label>
+                    <select [(ngModel)]="afiliado.id_provincia" name="id_provincia" class="form-select"
+                        #provincia="ngModel" required>
+                        <option *ngFor="let provincia of provincias" [value]="provincia.id"> {{ provincia.pro_nombre }}
+                        </option>
+                    </select>
+                    <div *ngIf="f.submitted && provincia.invalid" class="alert alert-warning">
+                        <div *ngIf="provincia.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Seleccione la provincia
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Ciudad</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_ciudad" name="afi_ciudad"
+                        #ciudad="ngModel" required>
+                    <div *ngIf="f.submitted && ciudad.invalid" class="alert alert-warning">
+                        <div *ngIf="ciudad.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese la ciudad
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_telefono" name="afi_telefono"
+                        #telefono="ngModel" required>
+                    <div *ngIf="f.submitted && telefono.invalid" class="alert alert-warning">
+                        <div *ngIf="telefono.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese el Teléfono
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Celular</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_celular" name="afi_celular"
+                        #celular="ngModel" required>
+                    <div *ngIf="f.submitted && celular.invalid" class="alert alert-warning">
+                        <div *ngIf="celular.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese # celular
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="form-label">Nacionalidad</label>
+                    <select [(ngModel)]="afiliado.id_nacionalidad" name="id_nacionalidad" class="form-select"
+                        #nacionalidad="ngModel" required>
+                        <option *ngFor="let nacionalidad of nacionalidades" [value]="nacionalidad.id"> {{
+                            nacionalidad.nac_nombre }}</option>
+                    </select>
+                    <div *ngIf="f.submitted && nacionalidad.invalid" class="alert alert-warning">
+                        <div *ngIf="nacionalidad.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Seleccione la nacionalidad
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">E-mail Particular</label>
+                    <input type="email" class="form-control" [(ngModel)]="afiliado.afi_email_particular"
+                        #emailP="ngModel" name="afi_email_particular" required>
+                    <div *ngIf="f.submitted && emailP.invalid" class="alert alert-warning">
+                        <div *ngIf="emailP.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese email
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">E-mail Laboral</label>
+                    <input type="email" class="form-control" [(ngModel)]="afiliado.afi_email_laboral" #emailL="ngModel"
+                        name="afi_email_laboral" required>
+                    <div *ngIf="f.submitted && emailL.invalid" class="alert alert-warning">
+                        <div *ngIf="emailL.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese email
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+            <div class="card-header bg-primary text-light">
+                <h5 class="card-title">Por favor conteste las siguientes preguntas</h5>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Es afiliado a la UNACCE?</label>
+                    <select [(ngModel)]="afiliado.afi_afiliado_unacce" name="afi_afiliado_unacce" class="form-select"
+                        #afi_afiliado_unacce="ngModel" required>
+                        <option value="S"> SI </option>
+                        <option value="N"> NO </option>
+                    </select>
+                    <div *ngIf="f.submitted && afi_afiliado_unacce.invalid" class="alert alert-warning">
+                        <div *ngIf="afi_afiliado_unacce.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Seleccione una opción
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" *ngIf="afiliado.afi_afiliado_unacce == 'S'">
+                    <label class="form-label">Colegio de afiliación</label>
+                    <input type="text" class="form-control" [(ngModel)]="afiliado.afi_colegio_afiliacion"
+                        name="afi_colegio_afiliacion" #colegio="ngModel" required>
+                    <div *ngIf="f.submitted && colegio.invalid" class="alert alert-warning">
+                        <div *ngIf="colegio.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese el nombre del colegio
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="form-label">Preferiría realizar cursos de forma online o presencial?</label>
+                    <select [(ngModel)]="afiliado.afi_pregunta_cursos_online" name="afi_pregunta_cursos_online"
+                        class="form-select" #afi_pregunta_cursos_online="ngModel" required>
+                        <option value="O"> On-line </option>
+                        <option value="P"> Presencial </option>
+                    </select>
+                    <div *ngIf="f.submitted && afi_pregunta_cursos_online.invalid" class="alert alert-warning">
+                        <div *ngIf="afi_pregunta_cursos_online.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Seleccione una opción
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="form-label">En que temas le gustaría que se preparen más cursos?</label>
+                    <textarea [(ngModel)]="afiliado.afi_pregunta_tema_cursos" name="afi_pregunta_tema_cursos"
+                        #afi_pregunta_tema_cursos="ngModel" placeholder="Su respuesta aqui..." type="text"
+                        class="form-control" maxlength="1000" rows="2" required></textarea>
+                    <div *ngIf="f.submitted && afi_pregunta_tema_cursos.invalid" class="alert alert-warning">
+                        <div *ngIf="afi_pregunta_tema_cursos.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Ingrese una respuesta
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card text-dark  mt-3">
+                <div class="card-header bg-primary text-light">
+
+                    <div class="row">
+                        <div class="col-md-6">Curso a adquirir</div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Curso: </label>
+                            <select [(ngModel)]="afiliado.id_curso" name="id_curso" class="form-select"
+                                (change)="cargarDatosAdicionalesCurso()" #curso="ngModel" required>
+                                <option *ngFor="let curso of cursos" [value]="curso.id"> {{ curso.cur_descripcion }} -
+                                    {{
+                                    curso.mod_nombre }}
+                                </option>
+                            </select>
+                            <div *ngIf="f.submitted && curso.invalid" class="alert alert-warning">
+                                <div *ngIf="curso.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Seleccione un curso
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center" *ngIf="cursoSeleccionado.cur_imagen != ''">
+                            <img *ngIf="cursoSeleccionado.cur_imagen == ''" src="data:image/png;base64,{{imagenCurso}}"
+                                style="height: 300px;" alt="Curso">
+                            <img *ngIf="cursoSeleccionado.cur_imagen != ''"
+                                src="data:image/png;base64,{{cursoSeleccionado.cur_imagen}}" style="height: 300px;"
+                                alt="Curso">
+                        </div>
+                    </div>
+
+
+
+
+                    <div>
+                        <table class="table" style="table-layout: fixed; width: 100%">
+                            <!-- <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                </tr>
+                            </thead> -->
+                            <tbody>
+                                <tr *ngFor="let dato of cursoSeleccionado.datosAdicionales">
+                                    <th style="width: 20%; word-wrap: break-word" scope="row">{{ dato.descripcion }}
+                                    </th>
+                                    <td style="width: 40%; word-wrap: break-word">
+                                        <p style="white-space: pre-wrap">
+                                            {{ dato.dato1 }}
+                                        </p>
+                                    </td>
+                                    <td style="width: 40%; word-wrap: break-word">
+                                        <p style="white-space: pre-wrap">
+                                            {{ dato.dato2 }}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="card text-dark  mt-3">
+                <div class="card-header bg-primary text-light">
+
+                    <div class="row">
+                        <div class="col-md-6">Datos para facturación (OPCIONALES)</div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">Ced/Ruc</label>
+                            <input type="text" class="form-control" [(ngModel)]="afiliado.afi_ruc_facturacion"
+                                name="afi_ruc_facturacion" minlength="10" maxlength="13" #rucfacturacion="ngModel">
+                            <div *ngIf="f.submitted && rucfacturacion.invalid" class="alert alert-warning">
+                                <div *ngIf="rucfacturacion.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Ced/Ruc requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Nombres</label>
+                            <input type="text" class="form-control" [(ngModel)]="afiliado.afi_nombre_facturacion"
+                                name="afi_nombre_facturacion" #nombrefacturacion="ngModel">
+                            <div *ngIf="f.submitted && nombrefacturacion.invalid" class="alert alert-warning">
+                                <div *ngIf="nombrefacturacion.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Nombres requeridos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Ciudad y Dirección</label>
+                            <input type="text" class="form-control" [(ngModel)]="afiliado.afi_direccion_facturacion"
+                                name="afi_direccion_facturacion" #dirfacturacion="ngModel">
+                            <div *ngIf="f.submitted && dirfacturacion.invalid" class="alert alert-warning">
+                                <div *ngIf="dirfacturacion.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Dirección requerida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" [(ngModel)]="afiliado.afi_email_facturacion"
+                                name="afi_email_facturacion" #mailfacturacion="ngModel">
+                            <div *ngIf="f.submitted && mailfacturacion.invalid" class="alert alert-warning">
+                                <div *ngIf="mailfacturacion.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Correo requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" [(ngModel)]="afiliado.afi_telefono_facturacion"
+                                name="afi_telefono_facturacion" #telefonofacturacion="ngModel">
+                            <div *ngIf="f.submitted && telefonofacturacion.invalid" class="alert alert-warning">
+                                <div *ngIf="telefonofacturacion.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Teléfono requerido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Observación</label>
+                            <input type="text" class="form-control" [(ngModel)]="afiliado.afi_observacion_facturacion"
+                                name="afi_observacion_facturacion" #obsefacturacion="ngModel">
+                            <div *ngIf="f.submitted && obsefacturacion.invalid" class="alert alert-warning">
+                                <div *ngIf="obsefacturacion.errors!.required">
+                                    <i class="fas fa-exclamation-triangle"></i> Observación requerida
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card text-dark  mt-3" *ngIf="!afiliado.id">
+                <div class="card-header bg-primary text-light">
+
+                    <div class="row">
+                        <div class="col-md-6">UNACCE UMET</div>
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+                    <b>Acuerdo de Voluntades:</b> <br>
+                    <p class="text-justify">
+                        Una vez que el alumno se ha inscrito y matriculado para EL DIPLOMADO INTEGTRAL DE GESTION
+                        CONTABLE, TRIBUTACION, LABORAL, SOCIETARIO COMPRAS PUBLICAS Y TECNOLOGIA PARA CONTADORES, por
+                        una parte la UNACCE UMET, se compromete a lo siguiente:
+                    </p>
+                    <ul>
+                        <li>Impartir el Diplomado en 10 módulos, con un total 100 horas directa y 50 autonomas, de
+                            acuerdo al plan propuesto en el respectivo broshure, mediante la plataforma zoom.</li>
+                        <li>Proporcionar el material respectivo, esto es: Material de Laboratorio, guía de aplicación,
+                            libro de PLANIFICACION TRIBUTARIA, Kit de materiales. </li>
+                        <li>Iniciar el curso con el número de alumnos base (50).</li>
+                        <li>Reservase el derecho de aperturar con el número de alumnos base.</li>
+                        <li>Iniciar en los horarios respectivos.</li>
+                        <li>UNACCE UMET se compromete una vez que el alumno haya aprobado el Diplomado entregar su
+                            CERTIFICACION de DIPLOMADO por parte de la UMET con su respectivo registro.</li>
+                    </ul>
+
+                    <b>Responsabilidades de los alumnos: </b> <br>
+                    <ul>
+                        <li>Pagar los valores acordados por cada módulo </li>
+                        <li>Asistir en los horarios para los cuales se ha inscrito</li>
+                        <li>Hacer uso de la plataforma en forma adecuada</li>
+                        <li>Cumplir con responsabilidad en los trabajos e indicaciones dadas por el respectivo
+                            facilitador.</li>
+                        <li>El estudiante deberá rendir evaluaciones finales por cada módulo, las mismas que servirán
+                            para promediar en una nota final de PROBACIÓN y el mínimo de la calificación será de 7.50/10
+                        </li>
+                        <li>Una vez iniciado el DIPLOMADO y si consta asistencia del alumno, la UNACCE se reserva el
+                            derecho de no devolver dinero alguno.</li>
+                        <li>Si el alumno que pagare SU PRIMER MODULO y no pudiera asistir en las fechas previstas,
+                            tendrá el derecho de usarlo para los próximos cursos dentro del año calendario.</li>
+                        <li>Para dar inicio al siguiente módulo, el estudiante deberá cancelar el valor correspondiente
+                            durante la semana siguiente de terminado el módulo caso contrario no tendrá derecho a
+                            continuar.</li>
+                    </ul>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" [(ngModel)]="aceptaTerminosCondiciones"
+                            name="aceptaTerminosCondiciones" #acepta="ngModel" required>
+                        <label class="form-check-label" for="aceptaTerminosCondiciones">
+                            Acepto y estoy de acuerdo con las disposiciones generales.
+                        </label>
+                    </div>
+                    <div *ngIf="f.submitted && acepta.invalid" class="alert alert-danger">
+                        <div *ngIf="acepta.errors!.required">
+                            <i class="fas fa-exclamation-triangle"></i> Tiene que aceptar las disposiciones generales
+                            para poder continuar
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <div *ngIf="afiliado.id" class="col-md-6">
+                    <label>Estado
+                        <span *ngIf="afiliado.afi_estado == 'SA'" class="badge bg-primary">Sin Aprobar</span>
+                        <span *ngIf="afiliado.afi_estado == 'AP'" class="badge bg-success">Vigente</span>
+                        <span *ngIf="afiliado.afi_estado == 'PC'" class="badge bg-warning">Por Caducar</span>
+                        <span *ngIf="afiliado.afi_estado == 'CA'" class="badge bg-danger">Caducado</span>
+                    </label>
+                    <br>
+                    <br>
+                    <button *ngIf="afiliado.afi_estado == 'SA'" (click)="aprobarIngreso()" class="btn btn-primary"
+                        type="button">
+                        Aprobar Ingreso
+                    </button>
+                    <button *ngIf="afiliado.afi_estado == 'CA'" (click)="renovarIngreso()" class="btn btn-primary"
+                        type="button">
+                        Renovar Ingreso
+                    </button>
+                    <button *ngIf="afiliado.afi_estado == 'AP'" class="btn btn-success disabled" type="button">
+                        Ingreso Aprobado
+                    </button>
+                </div>
+                <div *ngIf="afiliado.afi_fecha_incorporacion" class="col-md-6">
+                    <label class="form-label"> Fecha de incorporación: {{ afiliado.afi_fecha_incorporacion }} </label>
+                    <label *ngIf="afiliado.afi_fecha_vencimiento" class="form-label"> Fecha de vencimiento: {{
+                        afiliado.afi_fecha_vencimiento }} </label>
+                </div>
+            </div>
+
+            <hr>
+            <div class="form-group text-center">
+                <button class="btn btn-primary w-50" type="submit">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button *ngIf="afiliado.id" type="button" class="btn btn-danger ml-1 w-50" (click)="eliminarAfiliado()">
+                    <i class="fas fa-trash"></i> Eliminar</button>
+            </div>
+
+        </form>
+
+
+    </div>
+</div>
